@@ -21,8 +21,8 @@ const bebasNeue = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BookSmart",
-  description: "BookSmart is a college library management solution.",
+  title: "SmartBook",
+  description: "SmartBook is a college library management solution.",
 };
 
 const RootLayout = ({ children}: { children: ReactNode }) => {
