@@ -1,7 +1,13 @@
 import { ReactNode } from 'react'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
+import { auth } from '@/auth'
 
-const layout = ({ children } : { children: ReactNode }) => {
+const layout = async ({ children } : { children: ReactNode }) => {
+  const session = await auth();
+
+  if(session) redirect('/dashboard');
+  
   return (
     <main className="auth-container">
       <section className='auth-form'>
