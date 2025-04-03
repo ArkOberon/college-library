@@ -1,6 +1,7 @@
 "use client"
 import AuthForm from "@/components/AuthForm"
 import { signInSchema } from "@/lib/validations"
+import { signInWithCredentials } from "@/lib/actions/auth"
 
 const SignIn = () => (
   <AuthForm 
@@ -10,7 +11,7 @@ const SignIn = () => (
       email: "",
       password: ""
     }}
-    onSubmit={() => {}}
+    onSubmit={signInWithCredentials}
   />
 )
 
