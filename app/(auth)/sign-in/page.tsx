@@ -4,6 +4,7 @@ import { signInSchema } from "@/lib/validations"
 import { signInWithCredentials } from "@/lib/actions/auth"
 
 const SignIn = () => (
+  console.log('SignIn page'),
   <AuthForm 
     type="SIGN_IN"
     schema={signInSchema}
