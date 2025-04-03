@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <>
       <form action={async () => {
-          'use server'
+          'use server';
 
           await signOut();
         }}

@@ -1,10 +1,10 @@
-import NextAuth, { User } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { compare } from "bcryptjs"
-import { eq } from "drizzle-orm"
-import { users } from "./database/schema"
-import { db } from "./database/db"
- 
+import NextAuth, { User } from "next-auth";
+import { compare } from "bcryptjs";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { db } from "@/database/db";
+import { users } from "@/database/schema";
+import { eq } from "drizzle-orm";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: "jwt",
@@ -12,54 +12,53 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        if(!credentials?.email || !credentials?.password) {
-          return null
+        if (!credentials?.email || !credentials?.password) {
+          console.log("No credentials provided");
+          return null;
         }
 
         const user = await db
           .select()
           .from(users)
           .where(eq(users.email, credentials.email.toString()))
-          .limit(1)
+          .limit(1);
 
-        if(user.length === 0) return null;
+        if (user.length === 0) return null;
 
         const isPasswordValid = await compare(
           credentials.password.toString(),
-          user[0].password
-        )
+          user[0].password,
+        );
 
-        if (!isPasswordValid) return null
+        if (!isPasswordValid) return null;
 
         return {
           id: user[0].id.toString(),
-          name: user[0].fullName,
           email: user[0].email,
-        } as User
-
-      }
-    })
+          name: user[0].fullName,
+        } as User;
+      },
+    }),
   ],
   pages: {
-    signIn: "/sign-in"
+    signIn: "/sign-in",
   },
   callbacks: {
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.name = user.name;
       }
-      return token
-    },
 
+      return token;
+    },
     async session({ session, token }) {
-      if(session.user) {
-        session.user.id = token.id as string
-        session.user.name = token.name as string
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
 
-      return session
-    }
-  }
-})
+      return session;
+    },
+  },
+});

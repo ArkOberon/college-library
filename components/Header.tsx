@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Session } from 'next-auth';
 
-const Header = ({ session } : { session: Session | null }) => {
+const Header = ({ session } : { session: Session }) => {
   const pathname = usePathname();
 
   return (

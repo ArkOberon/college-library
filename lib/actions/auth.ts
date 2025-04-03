@@ -1,4 +1,4 @@
-'user server';
+'use server';
 
 import { db } from "@/database/db";
 import { eq } from "drizzle-orm";
@@ -52,7 +52,7 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
     })
 
-    //await signInWithCredentials({ email, password});
+    await signInWithCredentials({ email, password});
 
     return { success: true }
   } catch (error) {
