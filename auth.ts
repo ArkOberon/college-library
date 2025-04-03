@@ -13,7 +13,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     CredentialsProvider({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          console.log("No credentials provided");
           return null;
         }
 
