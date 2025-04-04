@@ -16,7 +16,7 @@ export const sendEmail = async ({ email, subject, message }: {email:string, subj
       provider: resend({ token: config.env.resendToken }),
     },
     body: {
-      from: "Aurora Software <hello.hermenautas.es>",
+      from: `Aurora Software ${config.email}`,
       to: [email],
       subject,
       html: message
