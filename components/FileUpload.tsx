@@ -2,7 +2,6 @@
 
 import { IKImage, ImageKitProvider, IKUpload, IKVideo } from "imagekitio-next";
 import config from "@/lib/config";
-import ImageKit from "imagekit";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { toast } from "@/hooks/use-toast";
@@ -172,21 +171,21 @@ const FileUpload = ({
         </div>
       )}
 
-      {/* {file &&
+      {file &&
         (type === "image" ? (
           <IKImage
-            alt={file.filePath}
-            path={file.filePath}
+            alt={file.filePath || "Upload file"}
+            path={file.filePath || ""}
             width={500}
             height={300}
           />
         ) : type === "video" ? (
           <IKVideo
-            path={file.filePath}
+            path={file.filePath || "Upload file"}
             controls={true}
             className="h-96 w-full rounded-xl"
           />
-        ) : null)} */}
+        ) : null)}
     </ImageKitProvider>
   );
 };
