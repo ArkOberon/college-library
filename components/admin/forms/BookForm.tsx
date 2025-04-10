@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { bookSchema } from "@/lib/validations";
-
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import FileUpload from "@/components/FileUpload";
 
 interface Props extends Partial<Book> {
   type?: "create" | "update";
@@ -70,6 +72,206 @@ const BookForm = ({ type, ...book }: Props) => {
             </FormItem>
           )}
         />
+
+        <FormField        
+          control={form.control}
+          name={"author"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Author
+              </FormLabel>
+              <FormControl>               
+                <Input
+                  required
+                  placeholder="Book author"
+                  {...field}
+                  className="book-form_input"
+                />             
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"genre"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Genre
+              </FormLabel>
+              <FormControl>               
+                <Input
+                  required
+                  placeholder="Book genre"
+                  {...field}
+                  className="book-form_input"
+                />             
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"rating"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Rating
+              </FormLabel>
+              <FormControl>               
+                <Input
+                  type="number"
+                  min={1}
+                  max={5}
+                  placeholder="Book rating"
+                  {...field}
+                  className="book-form_input"
+                />             
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"totalCopies"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Total Copies
+              </FormLabel>
+              <FormControl>               
+                <Input
+                  type="number"
+                  min={0}
+                  max={10000}
+                  placeholder="Total copies"
+                  {...field}
+                  className="book-form_input"
+                />             
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+
+        <FormField        
+          control={form.control}
+          name={"coverUrl"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Book Image
+              </FormLabel>
+              <FormControl>               
+                <FileUpload
+                  type="image"
+                  accept="image/*"
+                  placeholder="Upload book cover image"
+                  folder="books/covers"
+                  variant="light"
+                  onFileChange={field.onChange}
+                  value={field.value}
+                />         
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"coverColor"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Primary Color
+              </FormLabel>
+              <FormControl>               
+                { /* Color */ }            
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"description"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Book Description
+              </FormLabel>
+              <FormControl>               
+                <Textarea 
+                  placeholder="Book description"
+                  {...field}               
+                  rows={10}
+                  className="book-form_input"
+                />        
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"videoUrl"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Book Trailer
+              </FormLabel>
+              <FormControl>               
+                <FileUpload
+                  type="video"
+                  accept="video/*"
+                  placeholder="Upload book trailer"
+                  folder="books/videos"
+                  variant="light"
+                  onFileChange={field.onChange}
+                  value={field.value}
+                />          
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField        
+          control={form.control}
+          name={"summary"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Book Description
+              </FormLabel>
+              <FormControl>               
+                <Textarea 
+                  placeholder="Book summary"
+                  {...field}               
+                  rows={5}
+                  className="book-form_input"
+                />        
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="book-form_btn text-white">
+          Add Book to Library
+        </Button>
+      
       </form>
     </Form>    
   );
