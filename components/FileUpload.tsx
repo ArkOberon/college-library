@@ -172,14 +172,14 @@ const FileUpload = ({
       )}
 
       {file &&
-        (type === "image" ? (
+        (type === "image" && file.filePath ? (
           <IKImage
             alt={file.filePath || "Upload file"}
             path={file.filePath || ""}
             width={500}
             height={300}
           />
-        ) : type === "video" ? (
+        ) : type === "video" && file.filePath ? (
           <IKVideo
             path={file.filePath || "Upload file"}
             controls={true}
